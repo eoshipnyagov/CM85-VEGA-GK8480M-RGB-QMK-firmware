@@ -1,6 +1,8 @@
-# Dark Project CM85 Vega / GK8480M-RGB-QMK
+# Dark Project KD85 Vega / GK8480M-RGB-QMK
 
 Reverse-engineering workspace for the `WB32FQ95RCT4` keyboard firmware.
+
+The keyboard was initially identified as CM85; the current hardware identification is KD85.
 
 ## Contents
 
@@ -18,7 +20,19 @@ Reverse-engineering workspace for the `WB32FQ95RCT4` keyboard firmware.
 
 The image is kept as evidence. Do not flash modified images to the keyboard without a recovery plan.
 
+## Hardware inventory
+
+The keyboard consists of a main PCB and a separate daughterboard containing the volume encoder, approximately 128×64 display, and USB connector.
+
+Markings recorded from the main PCB:
+
+- `CHMC D8563F S2461` — exact component role not yet identified.
+- `PY25Q128HA` — likely SPI NOR flash, 128-Mbit class.
+- `2E1TH1D` — exact component role not yet identified.
+- `P25D80SH 3J1PC2F` — likely SPI NOR flash, 128-Mbit class; needs confirmation.
+- `HFD80CP100 229GNWD0a` — external flash candidate; needs datasheet/package confirmation.
+- Two additional ICs have markings too small to read reliably.
+
 ## Status
 
 The first pass confirms a WB32/ChibiOS/QMK/Vial application image with USB keyboard and two vendor HID interfaces. GPIO roles, matrix wiring, OLED controller, RGB implementation and exact keymap still need hardware-assisted validation.
-

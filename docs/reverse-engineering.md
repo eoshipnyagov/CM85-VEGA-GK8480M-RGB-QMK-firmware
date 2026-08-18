@@ -2,7 +2,24 @@
 
 ## Scope
 
-Target: Dark Project CM85 Vega / GK8480M-RGB-QMK, MCU `WB32FQ95RCT4`.
+Target: Dark Project KD85 Vega / GK8480M-RGB-QMK, MCU `WB32FQ95RCT4`.
+
+The device was initially referred to as CM85; current physical identification is KD85.
+
+The hardware includes a separate daughterboard with the volume encoder, an approximately 128×64 display, and the USB connector. This is important because the display and USB wiring may not be on the main keyboard PCB.
+
+## Recorded board markings
+
+The following markings were read from the main PCB. They are evidence, not yet verified part identifications:
+
+| Marking | Current interpretation |
+|---|---|
+| `CHMC D8563F S2461` | Unknown component; identify from package and surrounding circuit. |
+| `PY25Q128HA` | Likely 128-Mbit SPI NOR flash. |
+| `2E1TH1D` | Unknown component. |
+| `P25D80SH 3J1PC2F` | Likely 128-Mbit SPI NOR flash; confirm exact vendor and density. |
+| `HFD80CP100 229GNWD0a` | External-flash candidate; confirm datasheet, package and bus wiring. |
+| Two very small-marking ICs | Unreadable for now; photographs/microscope reading pending. |
 
 Input image: `firmware/original/VEGA_vial_v1_01_20231201.bin`.
 
@@ -110,4 +127,3 @@ No unambiguous SSD1306/SH1106 initialization sequence was recovered in the first
 - [QMK flashing documentation](https://github.com/qmk/qmk_firmware/blob/master/docs/flashing.md)
 - [Vial firmware size notes](https://get.vial.today/docs/firmware-size.html)
 - [Vial porting documentation](https://get.vial.today/docs/porting-to-via.html)
-
