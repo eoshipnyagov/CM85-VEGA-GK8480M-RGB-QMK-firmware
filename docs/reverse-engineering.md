@@ -18,7 +18,9 @@ The following markings were read from the main PCB. They are evidence, not yet v
 | `PY25Q128HA` | Likely 128-Mbit SPI NOR flash. |
 | `2E1TH1D` | Unknown component. |
 | `P25D80SH 3J1PC2F` | Likely 128-Mbit SPI NOR flash; confirm exact vendor and density. |
-| `HFD80CP100 229GNWD0a` | External-flash candidate; confirm datasheet, package and bus wiring. |
+| `HFD80CP100 229GNWD0a` | Additional controller/IC; exact role unresolved. |
+| Two `HFD5501L CQ` devices | Additional HFD-marked ICs; one is near USB and may be related to RGB/backlight control, the other is near `HFD80CP100` and `334PD45`. |
+| `334PD45` | Small 16-pin IC; exact role unknown. |
 | Two very small-marking ICs | Unreadable for now; photographs/microscope reading pending. |
 
 ## Component identification update
@@ -45,9 +47,26 @@ The main keyboard MCU is confirmed separately as `WB32FQ95RCT4`; therefore HFD80
 
 No reliable public match was found. It may be a power-management, USB, display or other small-package IC marking. Package outline, pin count, nearby passives and the connected nets are required before assigning a function.
 
-### `HFD 5501? CQ 2347TWC0a` — unresolved HFD-marked IC
+### `HFD5501L CQ` — two devices, role unresolved
 
-This is a preliminary reading; the character after `5501` may not be `L`. No reliable public datasheet or catalog match was found for the partial marking. `CQ` and `2347TWC0a` are likely package/lot/date or internal traceability markings. Because the same board also contains `HFD80CP100`, this may be another Huafenda subsystem IC, but its function cannot be inferred from the marking alone. The display daughterboard location, package size, pin count and nearby buses will be decisive.
+The marking is now read as `HFD5501L CQ`. No reliable public datasheet or catalog match was found. Two instances are present: one close to the USB connector, and one beside `HFD80CP100` and `334PD45`. The USB-side device is plausibly a power/RGB/backlight-related controller, but this remains a hypothesis until its high-current outputs, LED traces or PWM/control lines are identified. The duplicate device may indicate separate lighting zones, a second subsystem, or a reused platform controller.
+
+### `334PD45` — unresolved 16-pin IC
+
+This small 16-pin device sits beside `HFD80CP100` and the second `HFD5501L`. A 12 MHz crystal is located near this three-chip group. Its role could be an auxiliary MCU, USB/interface, radio/display bridge or clocked peripheral; the marking alone is insufficient for identification.
+
+## Physical placement observations
+
+The main PCB has many vias between layers, so visual tracing is unreliable without continuity measurements or microscope photography.
+
+| Region | Observed components | Current interpretation |
+|---|---|---|
+| Centre/lower side | `WB32FQ95RCT4`, physically separated from the dense component groups | Confirmed primary keyboard MCU; likely matrix/QMK/Vial/RGB coordination. |
+| Near USB | First `HFD5501L` | Possible USB-adjacent power, RGB or backlight function; unconfirmed. |
+| Right side under/near Backspace | `HFD80CP100`, `334PD45`, second `HFD5501L`, nearby 12 MHz crystal | Dense auxiliary-controller cluster; exact division of work unresolved. |
+| Far right edge | `CHMC D8563F`, `PY25Q128HA`, two small 8-pin devices | RTC and 16 MB SPI flash are confirmed by marking; likely persistent data/display assets, but bus ownership needs tracing. |
+
+The working architecture is therefore a split design: `WB32FQ95RCT4` is the primary keyboard MCU, while the right-side cluster likely handles one or more auxiliary functions (display, USB, wireless, storage, lighting or RTC). This is a working model, not a proven schematic.
 
 ### Two unreadable ICs
 
