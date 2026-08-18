@@ -30,7 +30,7 @@ Markings recorded from the main PCB:
 - `PY25Q128HA` — likely SPI NOR flash, 128-Mbit class.
 - `2E1TH1D` — exact component role not yet identified.
 - `P25D80SH 3J1PC2F` — likely SPI NOR flash, 128-Mbit class; needs confirmation.
-- `HFD80CP100 229GNWD0a` — likely main keyboard MCU; exact public datasheet identification pending.
+- `HFD80CP100 229GNWD0a` — additional controller/IC; role pending. The main keyboard MCU is confirmed as `WB32FQ95RCT4`.
 - Two additional ICs have markings too small to read reliably.
 
 ## Status

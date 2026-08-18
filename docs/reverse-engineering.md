@@ -35,11 +35,11 @@ Puya's PY25Q128HA is a 128-Mbit (16 MiB) serial NOR flash with single/dual/quad 
 
 The device marking matches Puya P25D80SH: 8 Mbit (1 MiB), 2.3–3.6 V SPI NOR flash, up to 120 MHz. `3J1PC2F` is likely lot/date/traceability marking. This is distinct from the 128-Mbit PY25Q128HA.
 
-### `HFD80CP100 229GNWD0a` — likely main keyboard MCU, high confidence
+### `HFD80CP100 229GNWD0a` — additional controller, role unresolved
 
-Independent teardown reports identify HFD80CP100 as a Huafenda keyboard/mouse controller, commonly associated with the Sonix SN32F299 family or a compatible/derivative device. It is described as an integrated keyboard controller with RGB and wireless-oriented functions. This identification is not backed by an official public HFD datasheet, so the exact core, flash size and peripheral map remain unconfirmed.
+Independent teardown reports identify HFD80CP100 as a Huafenda keyboard/mouse controller, commonly associated with the Sonix SN32F299 family or a compatible/derivative device. It is described as an integrated keyboard controller with RGB and wireless-oriented functions. This identification is not backed by an official public HFD datasheet, so the exact role, core, flash size and peripheral map on this board remain unconfirmed.
 
-This creates a major verification point: the previous static analysis associated the supplied binary with WB32FQ95RCT4. If HFD80CP100 is indeed the main MCU on this PCB, then either the binary belongs to a different board/revision, the MCU marking was read from a separate controller, or the WB32 interpretation needs to be revisited.
+The main keyboard MCU is confirmed separately as `WB32FQ95RCT4`; therefore HFD80CP100 must be treated as an additional controller or subsystem IC, not as the primary MCU. Its connection to the display daughterboard, wireless subsystem, RGB, RTC or auxiliary functions is still open.
 
 ### `2E1TH1D` — unresolved
 
