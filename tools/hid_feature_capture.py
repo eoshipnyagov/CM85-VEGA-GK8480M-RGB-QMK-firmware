@@ -24,6 +24,20 @@ function hookBufferFunction(moduleName, functionName, bufferArg, lengthArg) {
     });
 }
 
+const getFeature = Process.getModuleByName('hid.dll').getExportByName('HidD_GetFeature');
+send({hooked: 'HidD_GetFeature', address: getFeature.toString()});
+Interceptor.attach(getFeature, {
+    onEnter(args) {
+        this.buffer = args[1];
+        this.length = args[2].toInt32();
+    },
+    onLeave(retval) {
+        if (retval.toInt32() !== 0 && this.length > 0 && this.length <= 4096 && !this.buffer.isNull()) {
+            send({source: 'HidD_GetFeature', length: this.length}, this.buffer.readByteArray(this.length));
+        }
+    }
+});
+
 hookBufferFunction('hid.dll', 'HidD_SetFeature', 1, 2);
 hookBufferFunction('kernel32.dll', 'WriteFile', 1, 2);
 hookBufferFunction('kernel32.dll', 'DeviceIoControl', 2, 3);
