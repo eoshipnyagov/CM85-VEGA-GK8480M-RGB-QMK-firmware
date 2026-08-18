@@ -88,6 +88,10 @@ This arrangement naturally fits a display/encoder subsystem: the secondary contr
 
 The retail box lists `HFD80CP100` and `HFD582CHFS` alongside the TFT display. The keyboard is not advertised as having Bluetooth, 2.4 GHz or another radio mode. Therefore `HFD582CHFS` must not be identified as a wireless controller solely from the box text or from similarly named parts in other keyboard platforms. It may refer to an alternate platform BOM, a different product variant, or a controller used for a non-radio subsystem. Confirmation requires locating the exact marking on the PCB and checking for RF matching components/antenna traces.
 
+### Animation-control hypothesis
+
+The additional controller may be responsible for scheduling and rendering TFT and/or lighting animations. The `PY25Q128HA` 16 MB flash is large enough to hold image assets, frame sequences and UI resources. In that model, `HFD80CP100` or the unidentified `HFD582CHFS`-class device would manage animation state and transport, while one or both `HFD5501L` devices would implement LED/PWM output. This remains a hypothesis until flash access patterns and LED-control traces are correlated with animation changes.
+
 ## Evidence for I2C communication
 
 The binary contains a strong sign that the WB32 application configures the hardware `I2C2` peripheral:
