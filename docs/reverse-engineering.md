@@ -63,6 +63,11 @@ The board has three crystal components with `XT` reference designators. One is r
 
 ## Physical placement observations
 
+The board has only four visibly labelled test points (`TP`) in total. This
+does not rule out hidden test vias or service signals on the FFC connectors,
+but it makes a complete exposed SWD/JTAG/UART header unlikely. Their nets
+should be identified before assuming any one of them is a debug signal.
+
 The main PCB has many vias between layers, so visual tracing is unreliable without continuity measurements or microscope photography.
 
 | Region | Observed components | Current interpretation |
