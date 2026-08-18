@@ -45,6 +45,10 @@ The main keyboard MCU is confirmed separately as `WB32FQ95RCT4`; therefore HFD80
 
 No reliable public match was found. It may be a power-management, USB, display or other small-package IC marking. Package outline, pin count, nearby passives and the connected nets are required before assigning a function.
 
+### `HFD 5501L CQ 2347TWC0a` — unresolved HFD-marked IC
+
+No reliable public datasheet or catalog match was found for `HFD5501L`. `CQ` and `2347TWC0a` are likely package/lot/date or internal traceability markings. Because the same board also contains `HFD80CP100`, this may be another Huafenda subsystem IC, but its function cannot be inferred from the marking alone. The display daughterboard location, package size, pin count and nearby buses will be decisive.
+
 ### Two unreadable ICs
 
 Do not infer these from the firmware yet. A sharp perpendicular macro photograph, package dimensions and pin-1 indication should be enough to narrow them down.
