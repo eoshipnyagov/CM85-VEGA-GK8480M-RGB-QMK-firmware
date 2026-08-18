@@ -72,6 +72,18 @@ The main PCB has many vias between layers, so visual tracing is unreliable witho
 
 The working architecture is therefore a split design: `WB32FQ95RCT4` is the primary keyboard MCU, while the right-side cluster likely handles one or more auxiliary functions (display, USB, wireless, storage, lighting or RTC). This is a working model, not a proven schematic.
 
+## Current best candidate for the secondary controller
+
+The strongest current candidate is the `HFD80CP100` paired with `PY25Q128HA`:
+
+- `HFD80CP100` is the likely secondary digital controller;
+- `PY25Q128HA` is its likely external 16 MB SPI storage;
+- `CHMC D8563F` is likely connected to the same subsystem for time/date data;
+- the 12 MHz `XT` crystal is likely the clock source for `HFD80CP100`;
+- one or both `HFD5501L` devices may provide RGB or display-backlight control.
+
+This arrangement naturally fits a display/encoder subsystem: the secondary controller can maintain the UI, read the encoder and RTC, and store images/animations in external flash, while `WB32FQ95RCT4` remains responsible for the keyboard matrix and QMK/Vial USB application. It is still a hypothesis until the SPI flash pins, RTC I2C lines and inter-board connector are traced to the controller.
+
 ### Two unreadable ICs
 
 Do not infer these from the firmware yet. A sharp perpendicular macro photograph, package dimensions and pin-1 indication should be enough to narrow them down.

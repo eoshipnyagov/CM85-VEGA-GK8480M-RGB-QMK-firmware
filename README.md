@@ -34,6 +34,8 @@ Markings recorded from the main PCB:
 - Two `HFD5501L CQ` devices — marking now read as `1L`; one is near USB and may be related to RGB/backlight control, the second is near `HFD80CP100` and `334PD45`.
 - `334PD45` — small 16-pin IC, probably a power-management/power-distribution controller; located beside `HFD80CP100` and the second `HFD5501L`.
 - Three crystal components are marked `XT`; the 12 MHz crystal beside the right-side controller cluster most likely clocks `HFD80CP100`.
+
+Current auxiliary-controller hypothesis: `HFD80CP100` is paired with the nearby `PY25Q128HA` 16 MB SPI flash and `CHMC D8563F` RTC to operate the display/encoder subsystem. This remains to be confirmed by tracing the SPI/I2C and inter-board connections.
 - `U9` — small square IC, approximately four pins per side, located near a suspected crystal; marking not yet readable.
 - Two additional ICs have markings too small to read reliably.
 
