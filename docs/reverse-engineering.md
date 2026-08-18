@@ -84,6 +84,16 @@ The strongest current candidate is the `HFD80CP100` paired with `PY25Q128HA`:
 
 This arrangement naturally fits a display/encoder subsystem: the secondary controller can maintain the UI, read the encoder and RTC, and store images/animations in external flash, while `WB32FQ95RCT4` remains responsible for the keyboard matrix and QMK/Vial USB application. It is still a hypothesis until the SPI flash pins, RTC I2C lines and inter-board connector are traced to the controller.
 
+## Evidence for I2C communication
+
+The binary contains a strong sign that the WB32 application configures the hardware `I2C2` peripheral:
+
+- at image offset approximately `0x6206`, code loads the peripheral base `0x40008800`;
+- the same early initialization block also references `0x40003800` (UART1), `0x40008400` (UART3) and `0x40003000` (QSPI), consistent with a ChibiOS/WB32 peripheral setup table;
+- `0x40008800` matches the WB32FQ95xx `I2C2` address from the reference manual.
+
+This proves I2C2 support/configuration exists in the image, but does not by itself prove a live exchange with `HFD80CP100`. The current static pass has not recovered a reliable 7-bit slave address, transaction buffer or device-specific register sequence. Candidate I2C users are `CHMC D8563F` RTC and the display/secondary-controller link; the latter remains unconfirmed. A USB/I2C or inter-board logic capture should resolve this quickly.
+
 ### Two unreadable ICs
 
 Do not infer these from the firmware yet. A sharp perpendicular macro photograph, package dimensions and pin-1 indication should be enough to narrow them down.
