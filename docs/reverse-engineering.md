@@ -21,6 +21,34 @@ The following markings were read from the main PCB. They are evidence, not yet v
 | `HFD80CP100 229GNWD0a` | External-flash candidate; confirm datasheet, package and bus wiring. |
 | Two very small-marking ICs | Unreadable for now; photographs/microscope reading pending. |
 
+## Component identification update
+
+### `CHMC D8563F S2461` — RTC, high confidence
+
+This is a CHMC D8563-compatible real-time clock/calendar IC, functionally close to the NXP PCF8563. It uses a two-wire I2C interface, a 32.768 kHz crystal, open-drain interrupt and clock-output pins. The suffix/date-like text is probably production or lot information, not a different device.
+
+### `PY25Q128HA` — 128-Mbit SPI NOR flash, confirmed
+
+Puya's PY25Q128HA is a 128-Mbit (16 MiB) serial NOR flash with single/dual/quad SPI and QPI support, normally in an 8-pin package. It is a strong candidate for firmware, configuration, display assets or other persistent data storage.
+
+### `P25D80SH 3J1PC2F` — 8-Mbit SPI NOR flash, high confidence
+
+The device marking matches Puya P25D80SH: 8 Mbit (1 MiB), 2.3–3.6 V SPI NOR flash, up to 120 MHz. `3J1PC2F` is likely lot/date/traceability marking. This is distinct from the 128-Mbit PY25Q128HA.
+
+### `HFD80CP100 229GNWD0a` — likely main keyboard MCU, high confidence
+
+Independent teardown reports identify HFD80CP100 as a Huafenda keyboard/mouse controller, commonly associated with the Sonix SN32F299 family or a compatible/derivative device. It is described as an integrated keyboard controller with RGB and wireless-oriented functions. This identification is not backed by an official public HFD datasheet, so the exact core, flash size and peripheral map remain unconfirmed.
+
+This creates a major verification point: the previous static analysis associated the supplied binary with WB32FQ95RCT4. If HFD80CP100 is indeed the main MCU on this PCB, then either the binary belongs to a different board/revision, the MCU marking was read from a separate controller, or the WB32 interpretation needs to be revisited.
+
+### `2E1TH1D` — unresolved
+
+No reliable public match was found. It may be a power-management, USB, display or other small-package IC marking. Package outline, pin count, nearby passives and the connected nets are required before assigning a function.
+
+### Two unreadable ICs
+
+Do not infer these from the firmware yet. A sharp perpendicular macro photograph, package dimensions and pin-1 indication should be enough to narrow them down.
+
 Input image: `firmware/original/VEGA_vial_v1_01_20231201.bin`.
 
 ## Firm findings
