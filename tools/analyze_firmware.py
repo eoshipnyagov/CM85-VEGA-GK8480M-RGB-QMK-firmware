@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import struct
 from pathlib import Path
@@ -56,6 +57,37 @@ def disassemble_window(data: bytes, offset: int, radius: int = 24) -> list[str]:
     return lines
 
 
+def disassemble_range(data: bytes, start: int, end: int) -> list[str]:
+    """Disassemble a bounded Thumb range, retaining undecoded bytes as data."""
+    md = Cs(CS_ARCH_ARM, CS_MODE_THUMB)
+    md.detail = False
+    md.skipdata = True
+    result = []
+    for insn in md.disasm(data[start:end], BASE + start):
+        result.append(f"0x{insn.address:08X}: {insn.mnemonic:<7} {insn.op_str}".rstrip())
+    return result
+
+
+def literal_ldr_xrefs(data: bytes, start: int, end: int) -> list[tuple[int, int, int, str]]:
+    """Find Thumb LDR (PC-relative) instructions and resolve their literal values."""
+    md = Cs(CS_ARCH_ARM, CS_MODE_THUMB)
+    md.detail = False
+    result = []
+    for insn in md.disasm(data[start:end], BASE + start):
+        if insn.mnemonic != "ldr" or "[pc" not in insn.op_str:
+            continue
+        match = re.search(r"#([+-]?0x[0-9a-f]+|[+-]?\d+)", insn.op_str)
+        if not match:
+            continue
+        immediate = int(match.group(1), 0)
+        literal_address = ((insn.address + 4) & ~3) + immediate
+        literal_offset = literal_address - BASE
+        if 0 <= literal_offset <= len(data) - 4:
+            value = struct.unpack_from("<I", data, literal_offset)[0]
+            result.append((insn.address, literal_address, value, insn.op_str))
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("image", type=Path)
@@ -65,7 +97,7 @@ def main() -> None:
     data = args.image.read_bytes()
     print(f"image={args.image}")
     print(f"size={len(data)} bytes (0x{len(data):X})")
-    print(f"sha256={__import__('hashlib').sha256(data).hexdigest()}")
+    print(f"sha256={hashlib.sha256(data).hexdigest()}")
 
     print("\nvector_table:")
     for index, value in enumerate(read_words(data, 0, min(64, len(data) // 4))):
@@ -103,6 +135,17 @@ def main() -> None:
         print("\nall_strings:")
         for offset, value in printable_strings(data):
             print(f"  0x{offset:04X}: {value}")
+
+    print("\nstartup_path:")
+    print("  Reset vector enters a branch at 0x080001B8, targeting 0x080000E0.")
+    for line in disassemble_range(data, 0xE0, 0x17A):
+        print(f"  {line}")
+
+    print("\nliteral_ldr_xrefs_in_startup_and_handlers:")
+    for address, literal, value, operands in literal_ldr_xrefs(data, 0xE0, 0x9F00):
+        peripheral = PERIPHERALS.get(value)
+        tag = f" ({peripheral})" if peripheral else ""
+        print(f"  0x{address:08X}: {operands:<18} -> [0x{literal:08X}] = 0x{value:08X}{tag}")
 
 
 if __name__ == "__main__":
