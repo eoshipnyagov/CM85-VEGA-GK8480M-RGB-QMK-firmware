@@ -9,6 +9,8 @@ The keyboard was initially identified as CM85; the current hardware identificati
 - `firmware/original/` — original firmware image and its checksum.
 - `docs/reverse-engineering.md` — current binary analysis and confidence levels.
 - `docs/roadmap.md` — next investigation steps.
+- `docs/diagnostic-firmware-v1.md` — protocol, command table and safety limits for the first firmware iteration.
+- `firmware/diagnostic/` — QMK/Vial Raw HID diagnostic overlay.
 
 ## Reference image
 
