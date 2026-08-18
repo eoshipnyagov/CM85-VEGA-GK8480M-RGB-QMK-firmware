@@ -163,3 +163,24 @@ No unambiguous SSD1306/SH1106 initialization sequence was recovered in the first
 - [QMK flashing documentation](https://github.com/qmk/qmk_firmware/blob/master/docs/flashing.md)
 - [Vial firmware size notes](https://get.vial.today/docs/firmware-size.html)
 - [Vial porting documentation](https://get.vial.today/docs/porting-to-via.html)
+
+## Related public hardware references
+
+No public schematic or board-level teardown for the exact KD85/`GK8480M-RGB-QMK` PCB was found in the current search. Product pages confirm the KD85 Vega exterior and 85-key layout, but do not expose PCB photographs or schematics.
+
+The closest useful public references are the AJAZZ AK820 Pro and Epomaker TH80 V2 Pro reverse-engineering/teardown materials. They are not proven to be the same PCB, and their primary MCU is reported as HFD80CP100 rather than our confirmed WB32FQ95RCT4. However, they show a highly relevant platform pattern:
+
+- separate display and encoder hardware connected through a board/FPC interface;
+- `CHMC D8563F` RTC next to a dedicated 32.768 kHz crystal;
+- `PY25Q128HA` 16 MB external SPI flash used for display assets, configuration and firmware data;
+- display control over a small serial interface with power, reset, data/command, clock and chip-select signals;
+- a multi-controller architecture where keyboard, wireless, display and storage functions are split.
+
+This makes a separate display/USB controller on the KD85 plausible, but not yet proven. The decisive evidence will be continuity from USB D+/D− and the display FPC to `HFD80CP100`, `U9` and `WB32FQ95RCT4`.
+
+Useful references:
+
+- [AJAZZ AK820 Pro reverse-engineering README](https://github.com/fpb/ajazz-ak820-pro/blob/main/README.md) — public chip inventory, RTC, flash, display and encoder notes.
+- [AK820 Pro Modder hardware reference](https://github.com/wsclx/ak820pro-modder) — protocol and architecture notes for the related platform.
+- [Epomaker TH80 V2 Pro teardown](https://hwbusters.com/peripherals/epomaker-th80-v2-pro-mechanical-keyboard-review/4/) — photographs and component-level observations.
+- [Dark Project KD85 Vega product reference](https://netbox.by/gaming-i-striming/igrovie-klaviaturi/dark-project-kd85-vega-dp-kd-85a-300101-gox-white/) — exterior/layout reference only.
