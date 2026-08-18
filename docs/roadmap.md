@@ -8,6 +8,18 @@
 6. Build a minimal WB32/QMK test firmware only after the recovery/update path is understood.
 7. Add a host-side adapter for Steam/game context through a separate Raw HID protocol.
 
+## Command recovery from the binary
+
+The firmware contains almost no useful plain-text command names, so command recovery must be structural rather than string-based. The image exposes two 32-byte vendor HID report paths, making numeric HID/Vial dispatch tables and report handlers the primary targets. Search targets are:
+
+- byte-0 command comparisons in vendor HID receive handlers;
+- tables of small consecutive command IDs;
+- fixed 32-byte copies and response builders;
+- calls that follow HID commands into I2C2, QSPI, GPIO or display/RGB code;
+- possible Vial/VIA commands for keymap, EEPROM, lighting, bootloader and device identification.
+
+Static command identification should be correlated with captured USB reports. A command that causes I2C/SPI activity immediately afterward is the strongest evidence for communication with the secondary controller.
+
 ## Iterative hardware probing
 
 1. With power removed, identify only obvious ground, USB 5 V, 3.3 V and connector continuity points.
