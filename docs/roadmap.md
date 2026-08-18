@@ -20,6 +20,31 @@ The firmware contains almost no useful plain-text command names, so command reco
 
 Static command identification should be correlated with captured USB reports. A command that causes I2C/SPI activity immediately afterward is the strongest evidence for communication with the secondary controller.
 
+## Diagnostic bridge firmware
+
+The proposed experimental firmware would turn the WB32 into a controlled USB-to-bus bridge:
+
+```text
+PC console
+   ↓ USB vendor HID / Raw HID
+WB32 diagnostic bridge
+   ├─ I2C2 probe/read/write
+   ├─ SPI/QSPI probe/read-only
+   ├─ GPIO observation and safe control
+   └─ response packet back to PC
+```
+
+Recommended packet shape:
+
+```text
+request:  [opcode, bus, address, register, length, payload...]
+response: [status, bus, address, length, payload...]
+```
+
+The bridge should begin with identification and read-only operations: I2C bus scan, RTC register read, SPI JEDEC ID and bounded flash reads. Writes, arbitrary GPIO changes and display-controller commands should remain disabled until voltage levels, ownership and recovery are understood.
+
+Because the original QMK source is not available, this cannot be added safely to the existing binary as a simple patch. The practical sequence is: first probe the original firmware through its existing HID interfaces; then confirm the bootloader/update and recovery path; only then build a minimal WB32/ChibiOS diagnostic image. A custom CDC serial port is unnecessary initially—vendor HID keeps the existing USB model and avoids changing descriptors.
+
 ## Iterative hardware probing
 
 1. With power removed, identify only obvious ground, USB 5 V, 3.3 V and connector continuity points.
