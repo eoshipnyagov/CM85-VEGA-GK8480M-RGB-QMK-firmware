@@ -1,6 +1,7 @@
 # Generated analysis and local tooling output
 analysis-output/
 work/
+.tools/
 *.log
 *.lst
 *.map
@@ -10,4 +11,3 @@ work/
 *.i64
 *.idb
 *.sqlite
-
