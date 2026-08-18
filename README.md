@@ -32,7 +32,7 @@ Markings recorded from the main PCB:
 - `P25D80SH 3J1PC2F` — likely SPI NOR flash, 128-Mbit class; needs confirmation.
 - `HFD80CP100 229GNWD0a` — additional controller/IC; role pending. The main keyboard MCU is confirmed as `WB32FQ95RCT4`.
 - Two `HFD5501L CQ` devices — marking now read as `1L`; one is near USB and may be related to RGB/backlight control, the second is near `HFD80CP100` and `334PD45`.
-- `334PD45` — small 16-pin IC, exact role unknown; located beside `HFD80CP100` and the second `HFD5501L`.
+- `334PD45` — small 16-pin IC, probably a power-management/power-distribution controller; located beside `HFD80CP100` and the second `HFD5501L`.
 - `U9` — small square IC, approximately four pins per side, located near a suspected crystal; marking not yet readable.
 - Two additional ICs have markings too small to read reliably.
 

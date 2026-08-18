@@ -20,7 +20,7 @@ The following markings were read from the main PCB. They are evidence, not yet v
 | `P25D80SH 3J1PC2F` | Likely 128-Mbit SPI NOR flash; confirm exact vendor and density. |
 | `HFD80CP100 229GNWD0a` | Additional controller/IC; exact role unresolved. |
 | Two `HFD5501L CQ` devices | Additional HFD-marked ICs; one is near USB and may be related to RGB/backlight control, the other is near `HFD80CP100` and `334PD45`. |
-| `334PD45` | Small 16-pin IC; exact role unknown. |
+| `334PD45` | Small 16-pin IC; probably power-management or power-distribution controller, pending rail tracing. |
 | Two very small-marking ICs | Unreadable for now; photographs/microscope reading pending. |
 
 ## Component identification update
@@ -51,9 +51,9 @@ No reliable public match was found. It may be a power-management, USB, display o
 
 The marking is now read as `HFD5501L CQ`. No reliable public datasheet or catalog match was found. Two instances are present: one close to the USB connector, and one beside `HFD80CP100` and `334PD45`. The USB-side device is plausibly a power/RGB/backlight-related controller, but this remains a hypothesis until its high-current outputs, LED traces or PWM/control lines are identified. The duplicate device may indicate separate lighting zones, a second subsystem, or a reused platform controller.
 
-### `334PD45` — unresolved 16-pin IC
+### `334PD45` — probable power-management IC
 
-This small 16-pin device sits beside `HFD80CP100` and the second `HFD5501L`. A 12 MHz crystal is located near this three-chip group. Its role could be an auxiliary MCU, USB/interface, radio/display bridge or clocked peripheral; the marking alone is insufficient for identification.
+This small 16-pin device sits beside `HFD80CP100` and the second `HFD5501L`. Based on its placement and the board architecture, a power-management or power-distribution role is plausible. This is not yet confirmed: check whether it connects to USB 5 V, battery/3.3 V rails, inductors, MOSFETs or multiple decoupling networks. The nearby 12 MHz crystal is more likely associated with a neighboring digital controller than with the power IC itself, but this also requires tracing.
 
 ## Physical placement observations
 
