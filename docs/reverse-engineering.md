@@ -53,6 +53,10 @@ This is a preliminary reading; the character after `5501` may not be `L`. No rel
 
 Do not infer these from the firmware yet. A sharp perpendicular macro photograph, package dimensions and pin-1 indication should be enough to narrow them down.
 
+### `U9` — small square IC near a suspected crystal, unresolved
+
+The reported package has approximately four leads on each side, consistent with a small QFN/QFP-class device. Its proximity to a crystal suggests a clocked IC such as an auxiliary controller, radio/USB/display subsystem or other timing-sensitive device, but this is only a placement-based hypothesis. The top-marking, exact package, crystal frequency and connected nets are required for identification.
+
 Input image: `firmware/original/VEGA_vial_v1_01_20231201.bin`.
 
 ## Firm findings
