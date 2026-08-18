@@ -36,6 +36,8 @@ Markings recorded from the main PCB:
 - Three crystal components are marked `XT`; the 12 MHz crystal beside the right-side controller cluster most likely clocks `HFD80CP100`.
 
 Current auxiliary-controller hypothesis: `HFD80CP100` is paired with the nearby `PY25Q128HA` 16 MB SPI flash and `CHMC D8563F` RTC to operate the display/encoder subsystem. This remains to be confirmed by tracing the SPI/I2C and inter-board connections.
+
+The retail box also lists `HFD80CP100` and `HFD582CHFS` alongside the TFT display. The keyboard is not specified as wireless, so `HFD582CHFS` is currently treated only as a platform/variant clue; it is not identified as an installed radio module without a matching physical chip and RF circuitry on this PCB.
 - `U9` — small square IC, approximately four pins per side, located near a suspected crystal; marking not yet readable.
 - Two additional ICs have markings too small to read reliably.
 

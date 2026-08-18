@@ -70,7 +70,7 @@ The main PCB has many vias between layers, so visual tracing is unreliable witho
 | Right side under/near Backspace | `HFD80CP100`, `334PD45`, second `HFD5501L`, nearby 12 MHz `XT` crystal | Dense auxiliary-controller cluster; 12 MHz crystal probably clocks `HFD80CP100`. |
 | Far right edge | `CHMC D8563F`, `PY25Q128HA`, two small 8-pin devices | RTC and 16 MB SPI flash are confirmed by marking; likely persistent data/display assets, but bus ownership needs tracing. |
 
-The working architecture is therefore a split design: `WB32FQ95RCT4` is the primary keyboard MCU, while the right-side cluster likely handles one or more auxiliary functions (display, USB, wireless, storage, lighting or RTC). This is a working model, not a proven schematic.
+The working architecture is therefore a split design: `WB32FQ95RCT4` is the primary keyboard MCU, while the right-side cluster likely handles one or more auxiliary functions (display, USB, storage, lighting or RTC). A radio function is not assumed for this keyboard. This is a working model, not a proven schematic.
 
 ## Current best candidate for the secondary controller
 
@@ -83,6 +83,10 @@ The strongest current candidate is the `HFD80CP100` paired with `PY25Q128HA`:
 - one or both `HFD5501L` devices may provide RGB or display-backlight control.
 
 This arrangement naturally fits a display/encoder subsystem: the secondary controller can maintain the UI, read the encoder and RTC, and store images/animations in external flash, while `WB32FQ95RCT4` remains responsible for the keyboard matrix and QMK/Vial USB application. It is still a hypothesis until the SPI flash pins, RTC I2C lines and inter-board connector are traced to the controller.
+
+## Box marking: `HFD582CHFS`
+
+The retail box lists `HFD80CP100` and `HFD582CHFS` alongside the TFT display. The keyboard is not advertised as having Bluetooth, 2.4 GHz or another radio mode. Therefore `HFD582CHFS` must not be identified as a wireless controller solely from the box text or from similarly named parts in other keyboard platforms. It may refer to an alternate platform BOM, a different product variant, or a controller used for a non-radio subsystem. Confirmation requires locating the exact marking on the PCB and checking for RF matching components/antenna traces.
 
 ## Evidence for I2C communication
 
