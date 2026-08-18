@@ -12,7 +12,13 @@ import frida
 
 HOOK = r"""
 function hookBufferFunction(moduleName, functionName, bufferArg, lengthArg) {
-    const address = Process.getModuleByName(moduleName).getExportByName(functionName);
+    let address;
+    try {
+        address = Process.getModuleByName(moduleName).getExportByName(functionName);
+    } catch (_) {
+        send({missing: functionName});
+        return;
+    }
     send({hooked: functionName, address: address.toString()});
     Interceptor.attach(address, {
         onEnter(args) {
@@ -39,6 +45,7 @@ Interceptor.attach(getFeature, {
 });
 
 hookBufferFunction('hid.dll', 'HidD_SetFeature', 1, 2);
+hookBufferFunction('hid.dll', 'HidD_SetOutputReport', 1, 2);
 hookBufferFunction('kernel32.dll', 'WriteFile', 1, 2);
 hookBufferFunction('kernel32.dll', 'DeviceIoControl', 2, 3);
 """
