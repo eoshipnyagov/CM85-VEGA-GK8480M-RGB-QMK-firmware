@@ -1,6 +1,6 @@
 # Development roadmap
 
-1. Add reproducible binary-analysis scripts and export a symbol/strings report.
+1. Add reproducible binary-analysis scripts and export a symbol/strings report. (In progress: first script and static-analysis report added.)
 2. Disassemble the reset path and annotate clock, GPIO, USB and QSPI initialization.
 3. Capture USB traffic while using Vial; map vendor HID reports and test readable keymap/configuration commands.
 4. Photograph both PCBs and identify MCU, OLED, RGB, USB and external-flash nets with continuity measurements.
