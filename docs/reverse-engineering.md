@@ -53,6 +53,11 @@ No reliable public match was found. It may be a power-management, USB, display o
 
 The marking is now read as `HFD5501L CQ`. No reliable public datasheet or catalog match was found. Two instances are present: one close to the USB connector, and one beside `HFD80CP100` and `334PD45`. The USB-side device is plausibly a power/RGB/backlight-related controller, but this remains a hypothesis until its high-current outputs, LED traces or PWM/control lines are identified. The duplicate device may indicate separate lighting zones, a second subsystem, or a reused platform controller.
 
+The PCB photographs additionally show two identical devices with reference
+designators `UL1` and `UL2`. Their duplicated placement and the `UL` prefix are
+consistent with lighting units, possibly separate RGB zones. This is a board
+reference hypothesis, not a confirmed component family or protocol.
+
 ### `334PD45` (`U9`) — probable power-management IC
 
 This small 16-pin device, identified on the PCB as `U9`, sits beside `HFD80CP100` and the second `HFD5501L`. Based on its placement and the board architecture, a power-management or power-distribution role is plausible. This is not yet confirmed: check whether it connects to USB 5 V, battery/3.3 V rails, inductors, MOSFETs or multiple decoupling networks. The nearby 12 MHz crystal is now considered more likely to clock `HFD80CP100` than `334PD45`.
