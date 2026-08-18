@@ -204,6 +204,35 @@ flash_xfer(uint8_t command,
 которая вызывает `flash_read`/`flash_page_program` с большими адресами и
 длинами, либо найти отдельный транспортный слой к `HFD80CP100`.
 
+## USB и Vial/raw HID
+
+В области USB-дескрипторов найдены два важных признака:
+
+- raw HID usage page `0xFF60`, usage `0x61/0x62/0x63`;
+- input и output reports по `32` байта (`REPORT_COUNT = 0x20`, `REPORT_SIZE = 8`).
+
+Строка идентификации `vial:f64c2b3c` присутствует в UTF-16LE в районе
+`file+0xAE00`. Это согласуется с Vial-совместимым raw HID каналом QMK.
+
+Для дальнейшего сопоставления используем стандартные command ID Vial/QMK:
+
+```text
+01 protocol version
+02/03 keyboard value get/set
+04/05 dynamic keymap get/set keycode
+06 keymap reset
+0C–10 macro buffer operations
+11 layer count
+12/13 keymap buffer get/set
+14/15 encoder map get/set
+```
+
+Пока эти значения рассматриваются как шаблон сопоставления, а не как
+доказательство того, что каждый ID присутствует в данном образе. Их нужно
+подтвердить по switch/table-структуре обработчика и xref к `raw_hid_send`.
+Главный тест для экранного протокола — наличие дополнительных vendor-команд,
+которые обходят обычный keymap/Vial path и вызывают внешний flash или UART/I2C.
+
 ## Как будем давать имена
 
 Имя закрепляется только после проверки нескольких признаков:
