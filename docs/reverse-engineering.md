@@ -53,7 +53,11 @@ The marking is now read as `HFD5501L CQ`. No reliable public datasheet or catalo
 
 ### `334PD45` — probable power-management IC
 
-This small 16-pin device sits beside `HFD80CP100` and the second `HFD5501L`. Based on its placement and the board architecture, a power-management or power-distribution role is plausible. This is not yet confirmed: check whether it connects to USB 5 V, battery/3.3 V rails, inductors, MOSFETs or multiple decoupling networks. The nearby 12 MHz crystal is more likely associated with a neighboring digital controller than with the power IC itself, but this also requires tracing.
+This small 16-pin device sits beside `HFD80CP100` and the second `HFD5501L`. Based on its placement and the board architecture, a power-management or power-distribution role is plausible. This is not yet confirmed: check whether it connects to USB 5 V, battery/3.3 V rails, inductors, MOSFETs or multiple decoupling networks. The nearby 12 MHz crystal is now considered more likely to clock `HFD80CP100` than `334PD45`.
+
+### Crystal inventory
+
+The board has three crystal components with `XT` reference designators. One is reported as 12 MHz and is located beside the `HFD80CP100`/`334PD45`/`HFD5501L` cluster. The current working assignment is that this 12 MHz crystal belongs to `HFD80CP100`; the frequencies and consumers of the other two crystals remain to be recorded.
 
 ## Physical placement observations
 
@@ -63,7 +67,7 @@ The main PCB has many vias between layers, so visual tracing is unreliable witho
 |---|---|---|
 | Centre/lower side | `WB32FQ95RCT4`, physically separated from the dense component groups | Confirmed primary keyboard MCU; likely matrix/QMK/Vial/RGB coordination. |
 | Near USB | First `HFD5501L` | Possible USB-adjacent power, RGB or backlight function; unconfirmed. |
-| Right side under/near Backspace | `HFD80CP100`, `334PD45`, second `HFD5501L`, nearby 12 MHz crystal | Dense auxiliary-controller cluster; exact division of work unresolved. |
+| Right side under/near Backspace | `HFD80CP100`, `334PD45`, second `HFD5501L`, nearby 12 MHz `XT` crystal | Dense auxiliary-controller cluster; 12 MHz crystal probably clocks `HFD80CP100`. |
 | Far right edge | `CHMC D8563F`, `PY25Q128HA`, two small 8-pin devices | RTC and 16 MB SPI flash are confirmed by marking; likely persistent data/display assets, but bus ownership needs tracing. |
 
 The working architecture is therefore a split design: `WB32FQ95RCT4` is the primary keyboard MCU, while the right-side cluster likely handles one or more auxiliary functions (display, USB, wireless, storage, lighting or RTC). This is a working model, not a proven schematic.
