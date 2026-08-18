@@ -31,7 +31,7 @@ Markings recorded from the main PCB:
 - `2E1TH1D` — exact component role not yet identified.
 - `P25D80SH 3J1PC2F` — likely SPI NOR flash, 128-Mbit class; needs confirmation.
 - `HFD80CP100 229GNWD0a` — additional controller/IC; role pending. The main keyboard MCU is confirmed as `WB32FQ95RCT4`.
-- `HFD 5501L CQ 2347TWC0a` — additional HFD-marked IC; exact role and part family unknown.
+- `HFD 5501? CQ 2347TWC0a` — preliminary reading; one character after `5501` is uncertain.
 - Two additional ICs have markings too small to read reliably.
 
 ## Status
