@@ -1,6 +1,6 @@
 # Dark Project KD85 Vega / GK8480M-RGB-QMK
 
-Reverse-engineering workspace for the `WB32FQ95RCT4` keyboard firmware.
+Reverse-engineering workspace for the `WB32FQ95RCT6` keyboard firmware.
 
 The keyboard was initially identified as CM85; the current hardware identification is KD85.
 
@@ -33,7 +33,7 @@ Markings recorded from the main PCB:
 - `PY25Q128HA` — likely SPI NOR flash, 128-Mbit class.
 - `2E1TH1D` — exact component role not yet identified.
 - `P25D80SH 3J1PC2F` — likely SPI NOR flash, 128-Mbit class; needs confirmation.
-- `HFD80CP100 229GNWD0a` — additional controller/IC; role pending. The main keyboard MCU is confirmed as `WB32FQ95RCT4`.
+- `HFD80CP100 229GNWD0a` — additional controller/IC; role pending. The main keyboard MCU is confirmed as `WB32FQ95RCT6 AP3F154 2022`.
 - Two `HFD5501L CQ` devices — marking now read as `1L`; one is near USB and may be related to RGB/backlight control, the second is near `HFD80CP100` and `334PD45`.
 - `334PD45` — small 16-pin IC, probably a power-management/power-distribution controller; located beside `HFD80CP100` and the second `HFD5501L`.
 - Three crystal components are marked `XT`; the 12 MHz crystal beside the right-side controller cluster most likely clocks `HFD80CP100`.

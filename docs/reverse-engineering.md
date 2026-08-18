@@ -2,7 +2,9 @@
 
 ## Scope
 
-Target: Dark Project KD85 Vega / GK8480M-RGB-QMK, MCU `WB32FQ95RCT4`.
+Target: Dark Project KD85 Vega / GK8480M-RGB-QMK, MCU `WB32FQ95RCT6`.
+
+Physical marking: `WB32F Q95RCT6 AP3F154 2022`.
 
 The device was initially referred to as CM85; current physical identification is KD85.
 
@@ -41,7 +43,7 @@ The device marking matches Puya P25D80SH: 8 Mbit (1 MiB), 2.3–3.6 V SPI NOR fl
 
 Independent teardown reports identify HFD80CP100 as a Huafenda keyboard/mouse controller, commonly associated with the Sonix SN32F299 family or a compatible/derivative device. It is described as an integrated keyboard controller with RGB and wireless-oriented functions. This identification is not backed by an official public HFD datasheet, so the exact role, core, flash size and peripheral map on this board remain unconfirmed.
 
-The main keyboard MCU is confirmed separately as `WB32FQ95RCT4`; therefore HFD80CP100 must be treated as an additional controller or subsystem IC, not as the primary MCU. Its connection to the display daughterboard, wireless subsystem, RGB, RTC or auxiliary functions is still open.
+The main keyboard MCU is confirmed separately as `WB32FQ95RCT6`; therefore HFD80CP100 must be treated as an additional controller or subsystem IC, not as the primary MCU. Its connection to the display daughterboard, wireless subsystem, RGB, RTC or auxiliary functions is still open.
 
 ### `2E1TH1D` — unresolved
 
@@ -65,12 +67,12 @@ The main PCB has many vias between layers, so visual tracing is unreliable witho
 
 | Region | Observed components | Current interpretation |
 |---|---|---|
-| Centre/lower side | `WB32FQ95RCT4`, physically separated from the dense component groups | Confirmed primary keyboard MCU; likely matrix/QMK/Vial/RGB coordination. |
+| Centre/lower side | `WB32FQ95RCT6`, physically separated from the dense component groups | Confirmed primary keyboard MCU; likely matrix/QMK/Vial/RGB coordination. |
 | Near USB | First `HFD5501L` | Possible USB-adjacent power, RGB or backlight function; unconfirmed. |
 | Right side under/near Backspace | `HFD80CP100`, `334PD45`, second `HFD5501L`, nearby 12 MHz `XT` crystal | Dense auxiliary-controller cluster; 12 MHz crystal probably clocks `HFD80CP100`. |
 | Far right edge | `CHMC D8563F`, `PY25Q128HA`, two small 8-pin devices | RTC and 16 MB SPI flash are confirmed by marking; likely persistent data/display assets, but bus ownership needs tracing. |
 
-The working architecture is therefore a split design: `WB32FQ95RCT4` is the primary keyboard MCU, while the right-side cluster likely handles one or more auxiliary functions (display, USB, storage, lighting or RTC). A radio function is not assumed for this keyboard. This is a working model, not a proven schematic.
+The working architecture is therefore a split design: `WB32FQ95RCT6` is the primary keyboard MCU, while the right-side cluster likely handles one or more auxiliary functions (display, USB, storage, lighting or RTC). A radio function is not assumed for this keyboard. This is a working model, not a proven schematic.
 
 ## Current best candidate for the secondary controller
 
@@ -82,7 +84,7 @@ The strongest current candidate is the `HFD80CP100` paired with `PY25Q128HA`:
 - the 12 MHz `XT` crystal is likely the clock source for `HFD80CP100`;
 - one or both `HFD5501L` devices may provide RGB or display-backlight control.
 
-This arrangement naturally fits a display/encoder subsystem: the secondary controller can maintain the UI, read the encoder and RTC, and store images/animations in external flash, while `WB32FQ95RCT4` remains responsible for the keyboard matrix and QMK/Vial USB application. It is still a hypothesis until the SPI flash pins, RTC I2C lines and inter-board connector are traced to the controller.
+This arrangement naturally fits a display/encoder subsystem: the secondary controller can maintain the UI, read the encoder and RTC, and store images/animations in external flash, while `WB32FQ95RCT6` remains responsible for the keyboard matrix and QMK/Vial USB application. It is still a hypothesis until the SPI flash pins, RTC I2C lines and inter-board connector are traced to the controller.
 
 ## Box marking: `HFD582CHFS`
 
@@ -223,7 +225,7 @@ No unambiguous SSD1306/SH1106 initialization sequence was recovered in the first
 
 No public schematic or board-level teardown for the exact KD85/`GK8480M-RGB-QMK` PCB was found in the current search. Product pages confirm the KD85 Vega exterior and 85-key layout, but do not expose PCB photographs or schematics.
 
-The closest useful public references are the AJAZZ AK820 Pro and Epomaker TH80 V2 Pro reverse-engineering/teardown materials. They are not proven to be the same PCB, and their primary MCU is reported as HFD80CP100 rather than our confirmed WB32FQ95RCT4. However, they show a highly relevant platform pattern:
+The closest useful public references are the AJAZZ AK820 Pro and Epomaker TH80 V2 Pro reverse-engineering/teardown materials. They are not proven to be the same PCB, and their primary MCU is reported as HFD80CP100 rather than our confirmed WB32FQ95RCT6. However, they show a highly relevant platform pattern:
 
 - separate display and encoder hardware connected through a board/FPC interface;
 - `CHMC D8563F` RTC next to a dedicated 32.768 kHz crystal;
@@ -231,7 +233,7 @@ The closest useful public references are the AJAZZ AK820 Pro and Epomaker TH80 V
 - display control over a small serial interface with power, reset, data/command, clock and chip-select signals;
 - a multi-controller architecture where keyboard, wireless, display and storage functions are split.
 
-This makes a separate display/USB controller on the KD85 plausible, but not yet proven. The decisive evidence will be continuity from USB D+/D− and the display FPC to `HFD80CP100`, `U9` and `WB32FQ95RCT4`.
+This makes a separate display/USB controller on the KD85 plausible, but not yet proven. The decisive evidence will be continuity from USB D+/D− and the display FPC to `HFD80CP100`, `U9` and `WB32FQ95RCT6`.
 
 Useful references:
 

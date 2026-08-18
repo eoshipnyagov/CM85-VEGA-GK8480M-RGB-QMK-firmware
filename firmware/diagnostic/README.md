@@ -1,6 +1,6 @@
 # KD85 VEGA diagnostic firmware — iteration 1
 
-This is the first code iteration for the WB32FQ95RCT4 controller. It is a
+This is the first code iteration for the WB32FQ95RCT6 controller. It is a
 small QMK/Vial overlay, not a complete KD85 keyboard target: the real matrix
 pins, RGB pins, display bus, and secondary-controller bus still need to be
 confirmed from the PCB.
