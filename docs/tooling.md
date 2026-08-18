@@ -12,6 +12,7 @@ Checked 2026-08-18 on Windows.
 - Python 3.13 and `capstone 5.0.9` for binary analysis.
 - MinGW GCC: available for host-side tools only.
 - User-level Python tools: `qmk 1.2.0`, `cmake 4.4.2`, `ninja 1.13.0`, `hid`, `pyusb` and `pyserial`.
+- Portable ARM GNU Toolchain `15.2.1` is installed under `.tools/arm-toolchain`; `arm-none-eabi-gcc`, `size`, `objdump` and related tools are available there.
 
 QMK Toolbox runtime directory:
 
@@ -19,7 +20,7 @@ QMK Toolbox runtime directory:
 
 ## Not currently available on PATH
 
-- ARM GNU Toolchain installation is in progress as a portable user-level download; system-wide installation was blocked by missing administrator rights.
+- System-wide ARM GNU Toolchain installation was blocked by missing administrator rights; the working portable installation is used instead.
 - QMK CLI is installed, but reports that it requires an MSYS2 MinGW64 terminal for normal operation.
 - Make/NMake are still absent.
 - OpenOCD, SEGGER J-Link tools, ST-Link tools.
