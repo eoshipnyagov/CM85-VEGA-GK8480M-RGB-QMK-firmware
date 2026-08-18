@@ -2,6 +2,7 @@
 analysis-output/
 work/
 .tools/
+photo/
 *.log
 *.lst
 *.map
