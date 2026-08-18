@@ -1,0 +1,13 @@
+# Generated analysis and local tooling output
+analysis-output/
+work/
+*.log
+*.lst
+*.map
+
+# Local reverse-engineering databases
+*.ghidra
+*.i64
+*.idb
+*.sqlite
+
