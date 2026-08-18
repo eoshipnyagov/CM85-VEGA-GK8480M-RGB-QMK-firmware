@@ -20,7 +20,7 @@ The following markings were read from the main PCB. They are evidence, not yet v
 | `P25D80SH 3J1PC2F` | Likely 128-Mbit SPI NOR flash; confirm exact vendor and density. |
 | `HFD80CP100 229GNWD0a` | Additional controller/IC; exact role unresolved. |
 | Two `HFD5501L CQ` devices | Additional HFD-marked ICs; one is near USB and may be related to RGB/backlight control, the other is near `HFD80CP100` and `334PD45`. |
-| `334PD45` | Small 16-pin IC; probably power-management or power-distribution controller, pending rail tracing. |
+| `334PD45` (`U9`) | Small 16-pin IC; probably power-management or power-distribution controller, pending rail tracing. |
 | Two very small-marking ICs | Unreadable for now; photographs/microscope reading pending. |
 
 ## Component identification update
@@ -51,9 +51,9 @@ No reliable public match was found. It may be a power-management, USB, display o
 
 The marking is now read as `HFD5501L CQ`. No reliable public datasheet or catalog match was found. Two instances are present: one close to the USB connector, and one beside `HFD80CP100` and `334PD45`. The USB-side device is plausibly a power/RGB/backlight-related controller, but this remains a hypothesis until its high-current outputs, LED traces or PWM/control lines are identified. The duplicate device may indicate separate lighting zones, a second subsystem, or a reused platform controller.
 
-### `334PD45` — probable power-management IC
+### `334PD45` (`U9`) — probable power-management IC
 
-This small 16-pin device sits beside `HFD80CP100` and the second `HFD5501L`. Based on its placement and the board architecture, a power-management or power-distribution role is plausible. This is not yet confirmed: check whether it connects to USB 5 V, battery/3.3 V rails, inductors, MOSFETs or multiple decoupling networks. The nearby 12 MHz crystal is now considered more likely to clock `HFD80CP100` than `334PD45`.
+This small 16-pin device, identified on the PCB as `U9`, sits beside `HFD80CP100` and the second `HFD5501L`. Based on its placement and the board architecture, a power-management or power-distribution role is plausible. This is not yet confirmed: check whether it connects to USB 5 V, battery/3.3 V rails, inductors, MOSFETs or multiple decoupling networks. The nearby 12 MHz crystal is now considered more likely to clock `HFD80CP100` than `334PD45`.
 
 ### Crystal inventory
 
@@ -106,9 +106,11 @@ This proves I2C2 support/configuration exists in the image, but does not by itse
 
 Do not infer these from the firmware yet. A sharp perpendicular macro photograph, package dimensions and pin-1 indication should be enough to narrow them down.
 
-### `U9` — small square IC near a suspected crystal, unresolved
+### `U9` — board reference for `334PD45`
 
-The reported package has approximately four leads on each side, consistent with a small QFN/QFP-class device. Its proximity to a crystal suggests a clocked IC such as an auxiliary controller, radio/USB/display subsystem or other timing-sensitive device, but this is only a placement-based hypothesis. The top-marking, exact package, crystal frequency and connected nets are required for identification.
+The PCB reference `U9` denotes the known 16-pin `334PD45` device. Its exact
+electrical function remains unresolved; the current hypothesis is power
+management or power distribution, pending rail tracing.
 
 Input image: `firmware/original/VEGA_vial_v1_01_20231201.bin`.
 
